@@ -1,0 +1,12 @@
+certifi==2018.4.16
+chardet==3.0.4
+Django==2.0.6
+django-crispy-forms==1.7.2
+django-registration-redux==1.7
+djangorestframework==3.6.3
+idna==2.6
+Pillow==5.2.0
+pytz==2017.3
+requests==2.18.4
+selenium==3.5.0
+urllib3==1.22
