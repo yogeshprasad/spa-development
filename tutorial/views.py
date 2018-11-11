@@ -9,7 +9,10 @@ def home(request):
 	numbers = [1,2,3,4,5,6]
 	name = "ram"
 	args = {'name': name, 'numbers': numbers}
-	return render(request, 'accounts/home.html', args)
+	if request.user.is_authenticated:
+		return redirect('/account/coachingprofile')
+	else:
+		return render(request, 'accounts/dashboard.html', args)
 
 def profile(request, *args, **kwargs):
-	return render(request, 'accounts/home.html', {})
+	return render(request, 'accounts/dashboard.html', {})

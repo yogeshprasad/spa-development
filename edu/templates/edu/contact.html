@@ -2,48 +2,66 @@
 {% load static %}
 
 {% block body %}
-		<header id="head" class="secondary">
-            <div class="container">
-                    <h1>Contact Us</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing eliras scele!</p>
-                </div>
-    </header>
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<header id="head" class="secondary">
+	<div class="container">
+			<h1>Contact Us</h1>
+			<p>{{result.header}}</p>
+		</div>
+</header>
 
 	<!-- container -->
 	<div class="container">
 				<div class="row">
 					<div class="col-md-8">
+						<div class="container-fluid" style="display:none" id='alertSuccess'>
+							<div class="alert_success">
+								<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+								Thank You, We have received your message. We will get back you soon.
+							</div>
+						</div>
+						<div class="container-fluid" style="display:none" id="alertFailure">
+								<div class="alert_failure">
+									<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+									Sorry, We are having some problem. You can call in the mentioned number or try after some time.
+								</div>
+							</div>
 						<h3 class="section-title">Your Message</h3>
 						<p>
-						Lorem Ipsum is inting and typesetting in simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the is dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+							{{result.message}}
 						</p>
-						
-						<form class="form-light mt-20" role="form">
+						<form class="form-light mt-20" role="form" id="enquiry" onsubmit="return sendenquiry()" action="#">
+							{% csrf_token %}
 							<div class="form-group">
 								<label>Name</label>
-								<input type="text" class="form-control" placeholder="Your name">
+								<input type="text" class="form-control" placeholder="Your name" name="name" required>
 							</div>
 							<div class="row">
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Email</label>
-										<input type="email" class="form-control" placeholder="Email address">
+										<input type="email" class="form-control" placeholder="Email address" name="email" required>
 									</div>
 								</div>
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>Phone</label>
-										<input type="text" class="form-control" placeholder="Phone number">
+										<input type="text" class="form-control" placeholder="Phone number" name="mobile" required>
 									</div>
 								</div>
 							</div>
 							<div class="form-group">
 								<label>Subject</label>
-								<input type="text" class="form-control" placeholder="Subject">
+								<input type="text" class="form-control" placeholder="Subject" name="subject" required>
 							</div>
 							<div class="form-group">
 								<label>Message</label>
-								<textarea class="form-control" id="message" placeholder="Write you message here..." style="height:100px;"></textarea>
+								<textarea class="form-control" placeholder="Write you message here..." style="height:100px;" name="message" required></textarea>
+							</div>
+							<div class="form-group" style="display:none">
+									<label>DomUrl</label>
+									<input class="form-control" id="domurl" name="domurl" placeholder="domurl" required>
 							</div>
 							<button type="submit" class="btn btn-two">Send message</button><p><br/></p>
 						</form>
@@ -54,13 +72,13 @@
 								<h3 class="section-title">Office Address</h3>
 								<div class="contact-info">
 									<h5>Address</h5>
-									<p>5th Street, Carl View - United States</p>
+									<p>{{result.address}}</p>
 									
 									<h5>Email</h5>
-									<p>info@webthemez.com</p>
+									<p>{{result.email}}</p>
 									
-									<h5>Phone</h5>
-									<p>+09 123 1234 123</p>
+									<h5>Mobile</h5>
+									<p>{{result.phone}}</p>
 								</div>
 							</div> 
 						</div> 						
@@ -68,4 +86,11 @@
 				</div>
 			</div>
 	<!-- /container -->
+
+<script>
+	$(document).ready(function() {
+		$("#domurl").val(document.URL);
+});
+</script>
+
 	{% endblock %}

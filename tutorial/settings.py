@@ -31,14 +31,19 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'edu',
-    'accounts',
+    # Django aaps
     'django.contrib.admin', 
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # Third party apps
+    'crispy_forms',
+    # My apps
+    'edu',
+    'accounts',
+    'pages',
 ]
 
 STATICFILES_DIRS = [
@@ -53,7 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'tutorial.middleware.LoginRequiredMiddleware',
+    #'tutorial.middleware.LoginRequiredMiddleware',
 ]
 
 ROOT_URLCONF = 'tutorial.urls'
@@ -125,9 +130,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-LOGIN_REDIRECT_URL = ''
-LOGIN_URL = ''
-
+LOGIN_REDIRECT_URL = '/account/coachingprofile'
+LOGIN_URL = '/account/coachingprofile'
 
 LOGIN_EXEMPT_URLS = [
     r'^account/logout/$',
@@ -140,3 +144,5 @@ LOGIN_EXEMPT_URLS = [
 
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 1025
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'

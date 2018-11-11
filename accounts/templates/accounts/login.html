@@ -1,25 +1,38 @@
-{% extends 'base.html' %}
-
-{% block head %}
-	<title>Login</title>
-{% endblock %}
+{% extends 'base_accounts.html' %}
+{% load crispy_forms_tags %}
+{% load static %} 
 
 {% block body %}
- <div class="container">
-	<h1>Welcome</h1>
-	<p>
-		You Reached At The Right Place
-	</p>
+<div class="content">
+	<div class="container-fluid">
+	  <div class="row">
+			<div class="col-md-8">
+		  <div class="card">
+			<div class="card-header card-header-primary">
+			  <h4 class="card-title">User Login</h4>
+			  <p class="card-category">Complete your login</p>
+			</div>
+			<div class="card-body">
+			  <form method="post">
+				<div class="row">
+				  <div class="col-md-12">
+					<div class="form-group">
+					  <div class="form-group">
+						{% csrf_token %}
+						{{ form|crispy }}
+					  </div>
+					</div>
+				  </div>
+				</div>
+				<button type="submit" class="btn btn-primary pull-right">Login</button>
+				<div class="clearfix"></div>
+			  </form>
+			  <p class="card-category">Not registered? <a href="{% url 'accounts:register' %}">Create an account</a></p>
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+  </div>
 
-	<h2>Login</h2>
-	<form method="post">
-		
-		{% csrf_token %}
-
-		{{ form.as_p}}
-
-		<button type="submit">Login</button>
-
-	</form>
-</div>
 {% endblock %}

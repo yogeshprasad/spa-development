@@ -1,0 +1,52 @@
+{% extends 'base_accounts.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+{% block body %}
+<div class="content">
+	<div class="container-fluid">
+	  <div class="row">
+		<div class="col-md-8">
+		  <div class="card">
+			<div class="card-header card-header-primary">
+				<h4 class="card-title">Coaching Profile</h4>
+			  <p class="card-category">Edit Coaching Profile</p>
+			</div>
+			<div class="card-body">
+			  <form method="post" action="/account/editcoaching/">
+				<div class="row">
+				  <div class="col-md-12">
+					<div class="form-group">
+					  <div class="form-group">
+						{% csrf_token %}
+						{{ form|crispy }}
+					  </div>
+					</div>
+				  </div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="form-group">
+							<label id="coaching_url">Your Site Url: {{ request.get_host }}/</label>
+						</div>
+					</div>
+				</div>
+				<button type="submit" class="btn btn-primary pull-right">Edit</button>
+				<div class="clearfix"></div>
+				</form>
+
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	</div>
+	<script>
+			var inputBox = document.getElementById("id_unique_url");
+            document.getElementById('coaching_url').innerHTML = "Your Site Url: {{ request.get_host }}/edu/" + inputBox.value;
+			inputBox.onkeyup = function(){
+				document.getElementById('coaching_url').innerHTML = "Your Site Url: {{ request.get_host }}/edu/" + inputBox.value;
+			}
+	</script>
+{% endblock %}

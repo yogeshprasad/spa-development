@@ -1,0 +1,396 @@
+{% extends 'base_accounts.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block body %}
+<div class="content">
+	<div class="container-fluid">
+	  <div class="row">
+		<div class="col-md-8">
+		  <div class="card">
+			<div class="card-header card-header-primary">
+				<h4 class="card-title">About Us</h4>
+			  <p class="card-category">Write somethinng about your Coachinng</p>
+			</div>
+			<div class="card-body">
+				<form method="post" action="/account/eabout/">
+					{% csrf_token %}
+				<div class="row">
+						<div class="col-md-8">
+								<div class="form-group">
+									<label>About Us</label>
+									{% if data.about %}
+										<textarea type="text" name="message" class="form-control" required>{{data.about.aboutus}}</textarea>
+									{% else %}
+										<textarea type="text" name="message" class="form-control" required></textarea>
+									{% endif %}
+								</div>
+							</div>
+				</div>
+				<div class="row">
+						<div class="col-md-8">
+								<div class="form-group">
+									<label>About Team</label>
+									{% if data.about %}
+										<textarea type="text" name="aboutteam" class="form-control" required>{{data.about.aboutteam}}</textarea>
+									{% else %}
+										<textarea type="text" name="aboutteam" class="form-control" required></textarea>
+									{% endif %}
+								</div>
+							</div>
+				</div>
+				<input type="text" name="action" value="aboutus" style="display: none">
+				<button type="submit" class="btn btn-primary pull-right">Submit</button>
+				<div class="clearfix"></div>
+				</form>
+			</div>
+		  </div>
+		</div>
+		<div class="col-md-8">
+				<div class="card">
+				<div class="card-header card-header-primary">
+					<h4 class="card-title">Our Achievements</h4>
+					<p class="card-category">Write somethinng about your Coachinng Achievements</p>
+				</div>
+				<div class="card-body">
+					<form method="post" action="/account/eabout/">
+						{% csrf_token %}
+					<div class="row">
+							<div class="col-md-8">
+									<div class="form-group">
+										<label>Title</label>
+										{% if data.editachievement %}
+										<input type="text" class="form-control" name="title" value="{{data.editachievement.title}}" required>
+										{% else %}
+										<input type="text" class="form-control" name="title" required>
+										{% endif %}
+									</div>
+								</div>
+					</div>
+					<div class="row">
+							<div class="col-md-8">
+									<div class="form-group">
+										<label>Message</label>
+										{% if data.editachievement %}
+										<textarea type="text" class="form-control" name="message" required>{{data.editachievement.achievements}}</textarea>
+										{% else %}
+										<textarea type="text" class="form-control" name="message" required></textarea>
+										{% endif %}
+									</div>
+							</div>
+					</div>
+					<input type="text" name="action" value="achievements" style="display: none">
+					{% if data.editachievement %}
+					<input type="text" name="id" value="{{data.editachievement.id}}" style="display: none">
+					{% endif %}
+					<button type="submit" class="btn btn-primary pull-right">Submit</button>
+					<div class="clearfix"></div>
+					</form>
+				</div>
+				</div>
+			</div>
+			
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header card-header-primary">
+								<h4 class="card-title ">Achievements</h4>
+								<p class="card-category"> List of Achievements</p>
+							</div>
+							<div class="card-body">
+								<div class="table-responsive">
+									<table class="table">
+										<thead class=" text-primary">
+											<th>
+												Id
+											</th>
+											<th>
+												Title
+											</th>
+											<th>
+												Message
+											</th>
+											<th>
+												Edit
+											</th>
+											<th>
+												Delete
+											</th>
+										</thead>
+										<tbody>
+											{% if data.achievements %}
+												{% for item in data.achievements %}
+											<tr>
+												<td>
+														{{ forloop.counter }}
+												</td>
+												<td>
+													{{item.title}}
+												</td>
+												<td>
+														{{item.achievements}}
+													</td>
+												<td>
+														<form action="/account/eabout/">
+															{% csrf_token %}
+															<input type="text" name="id" value="{{item.id}}" style="display:none">
+															<input type="text" name="action" value="achievements" style="display:none">
+															<button type="submit" class="btn btn-info">Edit</button>
+													</form>
+												</td>
+												<td>
+													<form method="post" action="/account/eabout/">
+														{% csrf_token %}
+															<input type="text" name="id" value="{{item.id}}" style="display:none">
+															<input type="text" name="action" value="achievements" style="display:none">
+															<input type="text" name="task" value="delete" style="display:none">
+															<button type="submit" class="btn btn-danger">Delete</button>
+													</form>
+												</td>
+											</tr>
+											{% endfor %}
+											{% endif %}
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				
+			<div class="col-md-8">
+					<div class="card">
+					<div class="card-header card-header-primary">
+						<h4 class="card-title">Latest News</h4>
+						<p class="card-category">Write somethinng about upcomming news</p>
+					</div>
+					<div class="card-body">
+						<form method="post" action="/account/eabout/">
+							{% csrf_token %}
+						<div class="row">
+								<div class="col-md-8">
+										<div class="form-group">
+											<label>Title</label>
+											{% if data.editnews %}
+											<input type="text" class="form-control" name="title" value="{{data.editnews.title}}" required>
+											{% else %}
+											<input type="text" class="form-control" name="title" required>
+											{% endif %}
+										</div>
+									</div>
+						</div>
+						<div class="row">
+							<div class="col-md-8">
+									<div class="form-group">
+										<label>Message</label>
+										{% if data.editnews %}
+										<textarea type="text" class="form-control" name="message" required>{{data.editnews.message}}</textarea>
+										{% else %}
+										<textarea type="text" class="form-control" name="message" required></textarea>
+										{% endif %}
+									</div>
+								</div>
+						</div>
+						<input type="text" name="action" value="news" style="display: none">
+						{% if data.editnews %}
+						<input type="text" name="id" value="{{data.editnews.id}}" style="display: none">
+						{% endif %}
+						<button type="submit" class="btn btn-primary pull-right">Submit</button>
+						<div class="clearfix"></div>
+						</form>
+					</div>
+					</div>
+				</div>
+				
+						<div class="col-md-12">
+							<div class="card">
+								<div class="card-header card-header-primary">
+									<h4 class="card-title ">News</h4>
+									<p class="card-category"> List of News</p>
+								</div>
+								<div class="card-body">
+									<div class="table-responsive">
+										<table class="table">
+											<thead class=" text-primary">
+												<th>
+													Id
+												</th>
+												<th>
+													Title
+												</th>
+												<th>
+													Message
+												</th>
+												<th>
+													Edit
+												</th>
+												<th>
+													Delete
+												</th>
+											</thead>
+											<tbody>
+												{% if data.news %}
+													{% for item in data.news %}
+												<tr>
+													<td>
+															{{ forloop.counter }}
+													</td>
+													<td>
+														{{item.title}}
+													</td>
+													<td>
+															{{item.message}}
+														</td>
+													<td>
+															<form action="/account/eabout/">
+																{% csrf_token %}
+																<input type="text" name="id" value="{{item.id}}" style="display:none">
+																<input type="text" name="action" value="news" style="display:none">
+																<button type="submit" class="btn btn-info">Edit</button>
+														</form>
+													</td>
+													<td>
+														<form method="post" action="/account/eabout/">
+															{% csrf_token %}
+																<input type="text" name="id" value="{{item.id}}" style="display:none">
+																<input type="text" name="action" value="news" style="display:none">
+																<input type="text" name="task" value="delete" style="display:none">
+																<button type="submit" class="btn btn-danger">Delete</button>
+														</form>
+													</td>
+												</tr>
+												{% endfor %}
+												{% endif %}
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+			
+				<div class="col-md-8">
+						<div class="card">
+						<div class="card-header card-header-primary">
+							<h4 class="card-title">Our Team</h4>
+							<p class="card-category">Your team information</p>
+						</div>
+						<div class="card-body">
+							<form method="post" action="/account/eabout/">
+								{% csrf_token %}
+							<div class="row">
+									<div class="col-md-8">
+											<div class="form-group">
+												<label>Member Name</label>
+												{% if data.editmem %}
+												<input type="text" class="form-control" name="name" value="{{data.editmem.name}}" required>
+												{% else %}
+												<input type="text" class="form-control" name="name" required>
+												{% endif %}
+											</div>
+										</div>
+							</div>
+							<div class="row">
+									<div class="col-md-8">
+											<div class="form-group">
+												<label>Member Designation</label>
+												{% if data.editmem %}
+												<input type="text" class="form-control" name="designation" value="{{data.editmem.designation}}" required>
+												{% else %}
+												<input type="text" class="form-control" name="designation" required>
+												{% endif %}
+											</div>
+										</div>
+							</div>
+							<div class="row">
+								<div class="col-md-8">
+									<div class="form-group">
+										<label>Member Description</label>
+										{% if data.editmem %}
+										<textarea type="text" class="form-control" name="description" required>{{data.editmem.description}}</textarea>
+										{% else %}
+										<textarea type="text" class="form-control" name="description" required></textarea>
+										{% endif %}
+									</div>
+							</div>
+							</div>
+							{% if data.editmem %}
+							<input type="text" class="form-control" name="id" value="{{data.editmem.id}}" style="display: none">
+							{% endif %}
+							<input type="text" name="action" value="team" style="display: none">
+							<button type="submit" class="btn btn-primary pull-right">Submit</button>
+							<div class="clearfix"></div>
+							</form>
+						</div>
+						</div>
+					</div>
+					
+							<div class="col-md-12">
+								<div class="card">
+									<div class="card-header card-header-primary">
+										<h4 class="card-title ">Team</h4>
+										<p class="card-category"> List of Team Members</p>
+									</div>
+									<div class="card-body">
+										<div class="table-responsive">
+											<table class="table">
+												<thead class=" text-primary">
+													<th>
+														Id
+													</th>
+													<th>
+														Name
+													</th>
+													<th>
+														Designation
+													</th>
+													<th>
+															Edit
+													</th>
+													
+													<th>
+														Delete
+													</th>
+												</thead>
+												<tbody>
+													{% if data.team %}
+														{% for item in data.team %}
+													<tr>
+														<td>
+																{{ forloop.counter }}
+														</td>
+														<td>
+															{{item.name}}
+														</td>
+														<td>
+																{{item.designation}}
+															</td>
+														<td>
+																<form action="/account/eabout/">
+																	{% csrf_token %}
+																	<input type="text" name="id" value="{{item.id}}" style="display:none">
+																	<input type="text" name="action" value="team" style="display:none">
+																	<button type="submit" class="btn btn-info">Edit</button>
+															</form>
+														</td>
+														<td>
+															<form method="post" action="/account/eabout/">
+																{% csrf_token %}
+																	<input type="text" name="id" value="{{item.id}}" style="display:none">
+																	<input type="text" name="action" value="team" style="display:none">
+																	<input type="text" name="task" value="delete" style="display:none">
+																	<button type="submit" class="btn btn-danger">Delete</button>
+															</form>
+														</td>
+													</tr>
+													{% endfor %}
+													{% endif %}
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						
+	  </div>
+	</div>
+	</div>
+{% endblock %}

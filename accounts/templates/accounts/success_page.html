@@ -1,0 +1,41 @@
+{% extends 'base_accounts.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block head %}
+	<title>Success</title>
+{% endblock %}
+
+{% block body %}
+    <div class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                    <h4 class="card-title">Data Saved Successfully</h4>
+                    <div class="nav-tabs-navigation">
+                        <div class="nav-tabs-wrapper">
+                          <ul class="nav nav-tabs" data-tabs="tabs">
+                            <li class="nav-item">
+                              <a class="nav-link" href="#messages" data-toggle="tab">
+                                <i class="material-icons">code</i> Preview
+                                <div class="ripple-container"></div>
+                              </a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" href="#settings" data-toggle="tab">
+                                <i class="material-icons">cloud</i> Go Live
+                                <div class="ripple-container"></div>
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+{% endblock %}

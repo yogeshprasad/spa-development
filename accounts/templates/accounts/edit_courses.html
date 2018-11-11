@@ -1,0 +1,140 @@
+{% extends 'base_accounts.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+{% block body %}
+<script src="/static/accounts/assets/js/jquery-1.10.2.js" type="text/javascript"></script>
+
+<div class="content">
+	<div class="container-fluid">
+	  <div class="row">
+		<div class="col-md-8">
+		  <div class="card">
+			<div class="card-header card-header-primary">
+					{% if title %}
+					<h4 class="card-title">Update chapters</h4>
+					<p class="card-category">Update chapters or add new chapters</p>
+					{% else %}
+					<h4 class="card-title">Upload New Course</h4>
+					<p class="card-category">Upload New Course Information Here</p>
+					{% endif %}
+			</div>
+			<div class="card-body">
+				<form method="post" action="/account/savenewcourse/">
+					{% csrf_token %}
+					<div id="coursesid" class="card-body">
+						<div class="row">
+							<div class="col-md-8">
+								<div class="form-group bmd-form-group">
+									<label>Course Title</label>
+									{% if title %}
+									<input type="text" name= "course_title" class="form-control" value="{{ title }}" required>
+									{% else %}
+										<input type="text" name= "course_title" class="form-control" required>
+									{% endif %}
+								</div>
+						</div>
+						</div>
+						{% if chapters %}
+							{% for chapter in chapters %}
+								<div class="row">
+									<div class="col-md-8">
+											<div class="form-group bmd-form-group">
+												<label>Chapter-{{forloop.counter}}</label>
+												<input type="text" name="chapter" class="form-control" value="{{ chapter }}" required>
+											</div>
+										</div>
+								</div>
+							{% endfor %}
+						{% else %}
+							<div class="row">
+									<div class="col-md-8">
+										<div class="form-group bmd-form-group">
+											<label>Chapter</label>
+											<input type="text" name="chapter" class="form-control" required>
+										</div>
+									</div>
+								</div>
+						{% endif %}
+					</div>
+					<div class="col-md-2">
+							<a onclick="addnewchapter()" class="btn btn-info pull-left">Add New Chapter</a>	
+					</div>
+				<button type="submit" class="btn btn-primary pull-right">Submit</button>
+				<div class="clearfix"></div>
+				</form>
+			</div>
+		  </div>
+		</div>
+		</div>
+		
+				<div class="row">
+					<div class="col-md-8">
+						<div class="card">
+							<div class="card-header card-header-primary">
+								<h4 class="card-title ">Course Details</h4>
+								<p class="card-category"> List of available courses</p>
+							</div>
+							<div class="card-body">
+								<div class="table-responsive">
+									<table class="table">
+										<thead class=" text-primary">
+											<th>
+												Id
+											</th>
+											<th>
+												Name
+											</th>
+											<th>
+												Edit
+											</th>
+											<th>
+												Delete
+											</th>
+										</thead>
+										<tbody>
+												{% for item in data %}
+											<tr>
+												<td>
+														{{ forloop.counter }}
+												</td>
+												<td class="text-primary">
+													{{item}}
+												</td>
+												<td>
+														<form action="/account/ecourses/">
+															{% csrf_token %}
+															<input type="text" name="title" value="{{item}}" style="display:none">
+															<input type="text" name="action" value="get" style="display:none">
+															<button type="submit" class="btn btn-info">Edit</button>
+													</form>
+												</td>
+												<td>
+													<form method="post" action="/account/ecourses/">
+														{% csrf_token %}
+															<input type="text" name="title" value="{{item}}" style="display:none">
+															<input type="text" name="action" value="delete" style="display:none">
+															<button type="submit" class="btn btn-danger">Delete</button>
+													</form>
+												</td>
+											</tr>
+											{% endfor %}
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+<script>
+			function addnewchapter() {
+				newitem =  '<div class="row"><div class="col-md-8"><div class="form-group bmd-form-group"><label>Chapter</label><input type="text" name="chapter" class="form-control" required></div></div></div>'
+				$('#coursesid').append(newitem);
+			}
+</script>
+
+{% endblock %}

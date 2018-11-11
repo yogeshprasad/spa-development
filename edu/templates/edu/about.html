@@ -5,7 +5,7 @@
  	<header id="head" class="secondary">
             <div class="container">
                     <h1>About Us</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing eliras scele!</p>
+                    <p>We never dreamt of success. We worked for it</p>
                 </div>
     </header>
 
@@ -17,20 +17,15 @@
             <section class="col-sm-8 maincontent">
                 <h3>About Us</h3>
                 <p>
-                    <img src="{% static 'edu/assets/images/about.jpg' %}" alt="" class="img-rounded pull-right" width="300">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet, consequuntur eius repellendus eos aliquid molestiae ea laborum ex Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet, consequuntur eius repellendus eos aliquid molestiae ea laborum ex quibusdam laudantium voluptates placeat consectetur quam aliquam beatae soluta accusantium iusto nihil nesciunt unde veniam magnam repudiandae sapiente.
+                    <img src="{% static 'edu/assets/images/about-1.jpg' %}" alt="" class="img-rounded pull-right" width="300">
                 </p>
-                <p>Consectetur adipisicing elit. Eveniet, consequuntur eius repellendus eos aliquid molestiae ea laborum ex quibusdam laudantium voluptates placeat consectetur quam aliquam beatae soluta accusantium iusto nihil nesciunt unde veniam magnam repudiandae sapiente.</p>
+                <p>{{result.aboutus}}</p>
                 <h3>Our Achievements</h3>
-                <strong>2014</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet, consequuntur eius repellendus eos aliquid molestiae ea laborum ex quibusdam laudantium voluptates placeat consectetur quam aliquam beatae soluta accusantium iusto nihil nesciunt unde veniam magnam repudiandae sapiente. consequuntur eius repellendus eos aliquid molestiae ea laborum ex quibusdam laudantium voluptates placeat consectetur quam aliquam!</p>
-                <strong>2013</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet, consequuntur eius repellendus eos aliquid molestiae ea laborum ex quibusdam laudantium voluptates placeat consectetur quam aliquam beatae soluta accusantium iusto nihil nesciunt unde veniam magnam repudiandae sapiente. consequuntur eius repellendus eos aliquid molestiae ea laborum ex quibusdam laudantium voluptates placeat consectetur quam aliquam!</p>
-                <strong>2012</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet, consequuntur eius repellendus eos aliquid molestiae ea laborum ex quibusdam laudantium voluptates placeat consectetur quam aliquam beatae soluta accusantium iusto nihil nesciunt unde veniam magnam repudiandae sapiente. consequuntur eius repellendus eos aliquid molestiae ea laborum ex quibusdam laudantium voluptates placeat consectetur quam aliquam!</p>
-                <strong>2011</strong>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet, consequuntur eius repellendus eos aliquid molestiae ea laborum ex quibusdam laudantium voluptates placeat consectetur quam aliquam beatae soluta accusantium iusto nihil nesciunt unde veniam magnam repudiandae sapiente. consequuntur eius repellendus eos aliquid molestiae ea laborum ex quibusdam laudantium voluptates placeat consectetur quam aliquam!</p>
-            </section>
+                {% for data in result.achievements %}
+                <strong>{{data.title}}</strong>
+                <p>{{data.achievements}}</p>
+                {% endfor %}
+                </section>
             <!-- /main -->
 
             <!-- Sidebar -->
@@ -39,16 +34,11 @@
                 <div class="panel">
                     <h4>Latest News</h4>
                     <ul class="list-unstyled list-spaces">
-                        <li><a href="">Responsive Design</a><br>
-                            <span class="small text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi, laborum.</span></li>
-                        <li><a href="">HTML5, CSS3 and JavaScript</a><br>
-                            <span class="small text-muted">Consequuntur eius repellendus eos aliquid molestiae ea laborum ex quibusdam</span></li>
-                        <li><a href="">Bootstrap</a><br>
-                            <span class="small text-muted">Eveniet, consequuntur eius repellendus eos aliquid molestiae ea</span></li>
-                        <li><a href="">Clean Template</a><br>
-                            <span class="small text-muted">Sed, mollitia earum debitis est itaque esse reiciendis amet cupiditate.</span></li>
-                        <li><a href="">Premium Quality</a><br>
-                            <span class="small text-muted">Voluptate minus illo tenetur sint ab in culpa cumque impedit quibusdam. Saepe, molestias quia.</span></li>
+                        {% for data in result.news %}
+                        <li><a href="#">{{data.title}}</a><br>
+                            <span class="small text-muted">{{data.message}}</span>
+                        </li>
+                        {% endfor %}
                     </ul>
                 </div>
 
@@ -59,28 +49,28 @@
     </section>
     <!-- /container -->
     <section class="team-content">
-        <div class="container">
+        <div class="container" id="staff">
             <div class="row">
                 <div class="col-md-12">
                     <h3>Our Team</h3>
-                    <p>Voluptate minus illo tenetur sint ab in culpa cumque impedit quibusdam. Saepe, molestias quia.Voluptate minus illo tenetur sint ab in culpa cumque impedit quibusdam. Saepe, molestias quia.Voluptate minus illo tenetur sint ab in culpa cumque impedit quibusdam. Saepe, molestias quia.</p>
+                    <p>{{result.aboutteam}}</p>
                     <br />
                 </div>
             </div>
             <div class="row">
-
+                {% for data in result.team %}
                 <div class="col-md-3 col-sm-6 col-xs-6">
                     <!-- Team Member -->
                     <div class="team-member">
                         <!-- Image Hover Block -->
                         <div class="member-img">
                             <!-- Image  -->
-                            <img class="img-responsive" src="{% static 'edu/assets/images/photo-1.jpg' %}" alt="">
+                            <img class="img-responsive" src="{% static 'edu/assets/images/noimage.png' %}" alt="">
                         </div>
                         <!-- Member Details -->
-                        <h4>John Doe</h4>
+                        <h4>{{data.name}}</h4>
                         <!-- Designation -->
-                        <span class="pos">CEO</span>
+                        <span class="pos">{{data.designation}}</span>
                         <div class="team-socials">
                             <a href="#"><i class="fa fa-facebook"></i></a>
                             <a href="#"><i class="fa fa-google-plus"></i></a>
@@ -90,69 +80,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-6 col-xs-6">
-                    <!-- Team Member -->
-                    <div class="team-member pDark">
-                        <!-- Image Hover Block -->
-                        <div class="member-img">
-                            <!-- Image  -->
-                            <img class="img-responsive" src="{% static 'edu/assets/images/photo-2.jpg' %}" alt="">
-                        </div>
-                        <!-- Member Details -->
-                        <h4>Larry Doe</h4>
-                        <!-- Designation -->
-                        <span class="pos">Director</span>
-                        <div class="team-socials">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-google-plus"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-dribbble"></i></a>
-                            <a href="#"><i class="fa fa-github"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-6">
-                    <!-- Team Member -->
-                    <div class="team-member pDark">
-                        <!-- Image Hover Block -->
-                        <div class="member-img">
-                            <!-- Image  -->
-                            <img class="img-responsive" src="{% static 'edu/assets/images/photo-3.jpg' %}" alt="">
-                        </div>
-                        <!-- Member Details -->
-                        <h4>Ranith Kays</h4>
-                        <!-- Designation -->
-                        <span class="pos">Manager</span>
-                        <div class="team-socials">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-google-plus"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-dribbble"></i></a>
-                            <a href="#"><i class="fa fa-github"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 col-xs-6">
-                    <!-- Team Member -->
-                    <div class="team-member pDark">
-                        <!-- Image Hover Block -->
-                        <div class="member-img">
-                            <!-- Image  -->
-                            <img class="img-responsive" src="{% static 'edu/assets/images/photo-4.jpg' %}" alt="">
-                        </div>
-                        <!-- Member Details -->
-                        <h4>Joan Ray</h4>
-                        <!-- Designation -->
-                        <span class="pos">Creative</span>
-                        <div class="team-socials">
-                            <a href="#"><i class="fa fa-facebook"></i></a>
-                            <a href="#"><i class="fa fa-google-plus"></i></a>
-                            <a href="#"><i class="fa fa-twitter"></i></a>
-                            <a href="#"><i class="fa fa-dribbble"></i></a>
-                            <a href="#"><i class="fa fa-github"></i></a>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </section>

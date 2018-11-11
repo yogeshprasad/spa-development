@@ -1,0 +1,215 @@
+{% extends 'base_accounts.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+{% block body %}
+<div class="content">
+	<div class="container-fluid">
+	  <div class="row">
+		<div class="col-md-8">
+		  <div class="card">
+			<div class="card-header card-header-primary">
+				<h4 class="card-title">Home</h4>
+			  <p class="card-category">Update home page information here</p>
+			</div>
+			<div class="card-body">
+				<form method="post" action="/account/ehome/">
+					{% csrf_token %}
+				<div class="row">
+					<div class="col-md-8">
+						<div class="form-group">
+							<label>Image Over Text Header</label>
+							{% if data.home %}
+								<input type="text" name="imageovertxt1" class="form-control" value="{{data.home.image_txt_1}}" required>
+							{% else %}
+								<input type="text" name="imageovertxt1" class="form-control" required>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-8">
+						<div class="form-group">
+							<label>Image Over Text Message</label>
+							{% if data.home %}
+								<input type="text" name="imageovertxt2" class="form-control" value="{{data.home.image_txt_2}}" required>
+							{% else %}
+								<input type="text" name="imageovertxt2" class="form-control" required>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-8">
+						<div class="form-group">
+							<label>Course Message</label>
+							{% if data.home %}
+								<input type="text" name="coursesinfo" class="form-control" value="{{data.home.courses}}" required>
+							{% else %}
+								<input type="text" name="coursesinfo" class="form-control" required>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-8">
+						<div class="form-group">
+							<label>Staff Message</label>
+							{% if data.home %}
+								<input type="text" name="staffinfo" class="form-control" value="{{data.home.our_staff}}" required>
+							{% else %}
+								<input type="text" name="staffinfo" class="form-control" required>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-8">
+						<div class="form-group">
+							<label>Latest Updates</label>
+							{% if data.home %}
+								<input type="text" name="news" class="form-control" value="{{data.home.latest_updates}}" required>
+							{% else %}
+								<input type="text" name="news" class="form-control" required>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-8">
+						<div class="form-group">
+							<label>Placement information</label>
+							{% if data.home %}
+								<input type="text" name="placementinfo" class="form-control" value="{{data.home.placements}}" required>
+							{% else %}
+								<input type="text" name="placementinfo" class="form-control" required>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+	
+				<input type="text" name="action" value="homegeneral" style="display: none">
+					{% if data.home %}
+						<input type="text" name="id" class="form-control" value="{{data.home.id}}" style="display: none">
+					{% endif %}
+				<button type="submit" class="btn btn-primary pull-right">Submit</button>
+				<div class="clearfix"></div>
+			</form>
+			</div>
+		  </div>
+		</div>
+		<div class="col-md-8">
+				<div class="card">
+				<div class="card-header card-header-primary">
+					<h4 class="card-title">upcomming Courses</h4>
+					<p class="card-category">Update upcomming Courses</p>
+				</div>
+				<div class="card-body">
+					<form method="post" action="/account/ehome/">
+						{% csrf_token %}
+					<div class="row">
+						<div class="col-md-8">
+							<div class="form-group">
+								<label>Title</label>
+								{% if data.editcourse %}
+								<input type="text" class="form-control" name="ctitle" value="{{data.editcourse.title}}" required>
+								{% else %}
+								<input type="text" class="form-control" name="ctitle" required>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-8">
+							<div class="form-group">
+								<label>Message</label>
+								{% if data.editcourse %}
+								<input type="text" class="form-control" name="cmsg" value="{{data.editcourse.message}}" required>
+								{% else %}
+								<input type="text" class="form-control" name="cmsg" required>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+					<input type="text" name="action" value="homecourse" style="display: none">
+					{% if data.editcourse %}
+					<input type="text" name="id" value="{{data.editcourse.id}}" style="display: none">
+					{% endif %}
+					<button type="submit" class="btn btn-primary pull-right">Submit</button>
+					<div class="clearfix"></div>
+					</form>
+				</div>
+				</div>
+			</div>
+			
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header card-header-primary">
+								<h4 class="card-title ">Upcomming Courses</h4>
+								<p class="card-category"> List of Upcomming Courses</p>
+							</div>
+							<div class="card-body">
+								<div class="table-responsive">
+									<table class="table">
+										<thead class=" text-primary">
+											<th>
+												Id
+											</th>
+											<th>
+												Title
+											</th>
+											<th>
+												Message
+											</th>
+											<th>
+												Edit
+											</th>
+											<th>
+												Delete
+											</th>
+										</thead>
+										<tbody>
+											{% if data.courses %}
+												{% for item in data.courses %}
+											<tr>
+												<td>
+														{{ forloop.counter }}
+												</td>
+												<td>
+													{{item.title}}
+												</td>
+												<td>
+														{{item.message}}
+													</td>
+												<td>
+														<form action="/account/ehome/">
+															{% csrf_token %}
+															<input type="text" name="id" value="{{item.id}}" style="display:none">
+															<input type="text" name="action" value="homecourse" style="display:none">
+															<input type="text" name="task" value="get" style="display:none">
+															<button type="submit" class="btn btn-info">Edit</button>
+													</form>
+												</td>
+												<td>
+													<form method="post" action="/account/ehome/">
+														{% csrf_token %}
+															<input type="text" name="id" value="{{item.id}}" style="display:none">
+															<input type="text" name="action" value="homecourse" style="display:none">
+															<input type="text" name="task" value="delete" style="display:none">
+															<button type="submit" class="btn btn-danger">Delete</button>
+													</form>
+												</td>
+											</tr>
+											{% endfor %}
+											{% endif %}
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+	  </div>
+	</div>
+	</div>
+{% endblock %}

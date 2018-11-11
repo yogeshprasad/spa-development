@@ -1,0 +1,72 @@
+{% extends 'base_accounts.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block body %}
+
+<div class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title ">Student enquiry</h4>
+                  <p class="card-category"> List of last 30 days enquiries</p>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead class=" text-primary">
+                        <th>
+                          Name
+                        </th>
+                        <th>
+                          Email
+                        </th>
+                        <th>
+                          Mobile
+                        </th>
+                        <th>
+                          Subject
+                        </th>
+                        <th>
+                          Message
+                        </th>
+                        <th>
+                          Date
+                        </th>
+                      </thead>
+                      <tbody>
+                          {% for items in data %}
+                        <tr>
+                          <td>
+                            {{items.name}}
+                          </td>
+                          <td class="text-primary">
+                            {{items.email}}
+                          </td>
+                          <td class="text-primary">
+                            {{items.mobile}}
+                          </td>
+                          <td>
+                            {{items.subject}}
+                          </td>
+                          <td>
+                            {{items.message}}
+                          </td>
+                          <td>
+                            {{items.created_at}}
+                          </td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+{% endblock %}

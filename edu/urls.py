@@ -17,8 +17,7 @@ from . import views
 from django.urls import path, re_path
 
 urlpatterns = [
-    path('', views.home, name='home'),
-    path('home/', views.home, name='home'),
-    re_path(r'^edu/(?P<profileid>[\w\-]+)/$', views.profile_home, name='profile_home'),
-    re_path(r'^edu/(?P<profileid>[\w\-]+)/about/$', views.about, name='about'),
+    #path('', views.home, name='home'),
+    #path('home/', views.home, name='home'),
+    re_path(r'^edu/(?P<profileid>[\w\-]+)/$', views.profile_home, name='profile_home')
 ]

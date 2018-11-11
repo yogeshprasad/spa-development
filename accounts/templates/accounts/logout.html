@@ -1,24 +1,23 @@
-{% extends 'base.html' %}
+{% extends 'base_accounts.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
 
 {% block head %}
-	<title>Login</title>
+	<title>Success</title>
 {% endblock %}
 
 {% block body %}
- <div class="container">
-	<p>
-		You Have Logged Out!
-	</p>
-
-	<h2>Login</h2>
-	<form method="post">
-		
-		{% csrf_token %}
-
-		{{ form.as_p}}
-
-		<button type="submit">Login</button>
-
-	</form>
-</div>
+    <div class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                    <h4 class="card-title">You Have Successfully Logged Out</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
 {% endblock %}

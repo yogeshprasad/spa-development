@@ -6,14 +6,13 @@
 	<header id="head">
 		<div class="container">
              <div class="heading-text">							
-							<h1 class="animated flipInY delay1">Start Online Education</h1>
-							<p>Free Online education template for elearning and online education institute.</p>
+							<h1 class="animated flipInY delay1">{{result.home.image_txt_1}}</h1>
+							<p>{{result.home.image_txt_2}}</p>
 						</div>
             
 					<div class="fluid_container">                       
                     <div class="camera_wrap camera_emboss pattern_1" id="camera_wrap_4">
                         <div data-thumb="{% static 'edu/assets/images/slides/thumbs/img1.jpg' %}"  data-src="{% static 'edu/assets/images/slides/img1.jpg' %}">
-                            <h2>We develop.</h2>
                         </div> 
                         <div data-thumb="{% static 'edu/assets/images/slides/thumbs/img2.jpg' %}" data-src="{% static 'edu/assets/images/slides/img2.jpg' %}">
                         </div>
@@ -32,10 +31,9 @@
 							<div class="icon-box-top grey-box-icon-pos">
 								<img src="{% static 'edu/assets/images/1.png' %}" alt="" />
 							</div><!--icon box top -->
-							<h4>Online Courses</h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tempus eleifend risus ut congue
-							eset nec lacus elit dor broma.</p>
-     						<p><a href="#"><em>Read More</em></a></p>
+							<h4>Courses</h4>
+							<p>{{result.home.courses}}</p>
+     						<p><a href="?ask=courses"><em>Read More</em></a></p>
 						</div><!--grey box -->
 					</div><!--/span3-->
 					<div class="col-md-3">
@@ -43,10 +41,9 @@
 							<div class="icon-box-top grey-box-icon-pos">
 								<img src="{% static 'edu/assets/images/2.png' %}" alt="" />
 							</div><!--icon box top -->
-							<h4>Meet our Staff</h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tempus eleifend risus ut congue
-							eset nec lacus elit dor broma.</p>
-     						<p><a href="#"><em>Read More</em></a></p>
+							<h4>Our Staff</h4>
+							<p>{{result.home.our_staff}}</p>
+     						<p><a href="?ask=about#staff"><em>Read More</em></a></p>
 						</div><!--grey box -->
 					</div><!--/span3-->
 					<div class="col-md-3">
@@ -55,8 +52,7 @@
 								<img src="{% static 'edu/assets/images/3.png' %}" alt="" />
 							</div><!--icon box top -->
 							<h4>Latest Updates</h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tempus eleifend risus ut congue
-							eset nec lacus elit dor broma.</p>
+							<p>{{result.home.latest_updates}}</p>
      						<p><a href="#"><em>Read More</em></a></p>
 						</div><!--grey box -->
 					</div><!--/span3-->
@@ -66,8 +62,7 @@
 								<img src="{% static 'edu/assets/images/4.png' %}" alt="" />
 							</div><!--icon box top -->
 							<h4>Placements</h4>
-							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent tempus eleifend risus ut congue
-							eset nec lacus elit dor broma.</p>
+							<p>{{result.home.placements}}</p>
      						<p><a href="#"><em>Read More →</em></a></p>
 						</div><!--grey box -->
 					</div><!--/span3-->
@@ -75,51 +70,31 @@
     </div>
       <section class="news-box top-margin">
         <div class="container">
-            <h2><span>New Courses</span></h2>
+            <h2><span>Up Coming Classes</span></h2>
             <div class="row">
-       
-                <div class="col-lg-4 col-md-4 col-sm-12">
-                    <div class="newsBox">
-                        <div class="thumbnail">
-                            <figure><img src="{% static 'edu/assets/images/news2.jpg' %}" alt=""></figure>
-                            <div class="caption maxheight2">
-                            <div class="box_inner">
-                                        <div class="box">
-                                            <p class="title"><h5>Developer</h5></p>
-                                            <p>Lorem ipsum dolor sit amet, conc tetu er adipi scing. Praesent ves tibuum molestie lacuiirhs. Aenean.</p>
-                                        </div> 
-                                </div>
+                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                    </ol>
+                        
+<!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                        {% for data in result.courses %}
+                        {% if forloop.counter == 1%}
+                            <div class="item active">
+                        {% else %}
+                        <div class="item">
+                        {% endif %}
+                            <img src="{% static 'edu/assets/images/new-courses-2.jpeg' %}">
+                            <div class="carousel-caption">
+                                <h3>{{data.title}}</h3>
+                                <h4>{{data.message}}</h4>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-12">
-                    <div class="newsBox">
-                        <div class="thumbnail">
-                            <figure><img src="{% static 'edu/assets/images/news3.jpg' %}" alt=""></figure>
-                            <div class="caption maxheight2">
-                            <div class="box_inner">
-                                        <div class="box">
-                                            <p class="title"><h5>Photography   </h5></p>
-                                            <p>Lorem ipsum dolor sit amet, conc tetu er adipi scing. Praesent ves tibuum molestie lacuiirhs. Aenean.</p>
-                                        </div> 
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-12">
-                    <div class="newsBox">
-                        <div class="thumbnail">
-                            <figure><img src="{% static 'edu/assets/images/news4.jpg' %}" alt=""></figure>
-                            <div class="caption maxheight2">
-                           <div class="box_inner">
-                                        <div class="box">
-                                            <p class="title"><h5>Audio Editing</h5></p>
-                                            <p>Lorem ipsum dolor sit amet, conc tetu er adipi scing. Praesent ves tibuum molestie lacuiirhs. Aenean.</p>
-                                        </div> 
-                                </div>
-                            </div>
+                        {% endfor %}
                         </div>
                     </div>
                 </div>
@@ -132,21 +107,19 @@
       <section class="container">
       <div class="row">
       	<div class="col-md-8"><div class="title-box clearfix "><h2 class="title-box_primary">About Us</h2></div> 
-        <p><span>Perspiciatis unde omnis iste natus error sit voluptatem. Cum sociis natoque penatibus et magnis dis parturient montes ascetur ridiculus musull dui.</span></p>
-        <p>Lorem ipsumulum aenean noummy endrerit mauris. Cum sociis natoque penatibus et magnis dis parturient montes ascetur ridiculus mus. Null dui. Fusce feugiat malesuada odio.</p><p>Lorem ipsumulum aenean noummy endrerit mauris. Cum sociis natoque penatibus et magnis dis parturient montes ascetur ridiculus mus. Null dui. Fusce feugiat malesuada odio.</p>
-        <a href="#" title="read more" class="btn-inline " target="_self">read more</a> </div>
+        <p><span>{{result.aboutus}}</span></p>
+        <a href="?ask=about" title="read more" class="btn-inline " target="_self">read more</a> </div>
               
           
-          <div class="col-md-4"><div class="title-box clearfix "><h2 class="title-box_primary">Up Coming Courses</h2></div> 
-            <div class="list styled custom-list">
+          <div class="col-md-4"><div class="title-box clearfix "><h2 class="title-box_primary">Latest News</h2></div> 
+            <div class="list styled list-spaces">
             <ul>
-            <li><a title="Snatoque penatibus et magnis dis partu rient montes ascetur ridiculus mus." href="#">Mathematics and Computer Science</a></li>
-            <li><a title="Fusce feugiat malesuada odio. Morbi nunc odio gravida at cursus nec luctus." href="#">Mathematics and Philosophy</a></li>
-            <li><a title="Penatibus et magnis dis parturient montes ascetur ridiculus mus." href="#">Philosophy and Modern Languages</a></li>
-            <li><a title="Morbi nunc odio gravida at cursus nec luctus a lorem. Maecenas tristique orci." href="#">History (Ancient and Modern)</a></li>
-            <li><a title="Snatoque penatibus et magnis dis partu rient montes ascetur ridiculus mus." href="#">Classical Archaeology and Ancient History</a></li>
-            <li><a title="Fusce feugiat malesuada odio. Morbi nunc odio gravida at cursus nec luctus." href="#">Physics and Philosophy</a></li>
-            </ul>
+                {% for data in result.news %}
+                <li><a href="#">{{data.title}}</a><br>
+                    <span class="small text-muted">{{data.message}}</span>
+                </li>
+                {% endfor %}
+             </ul>
             </div>
          </div>
       </div>
