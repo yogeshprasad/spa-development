@@ -70,17 +70,20 @@
     </div>
       <section class="news-box top-margin">
         <div class="container">
+
             <h2><span>Up Coming Classes</span></h2>
             <div class="row">
                 <div id="myCarousel" class="carousel slide" data-ride="carousel">
                     <!-- Indicators -->
                     <ol class="carousel-indicators">
-                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                        <li data-target="#myCarousel" data-slide-to="1"></li>
-                        <li data-target="#myCarousel" data-slide-to="2"></li>
+                        {% for data in result.courses %}
+                        {% if forloop.counter0 == 0 %}
+                        <li data-target="#myCarousel" data-slide-to="{{forloop.counter0}}" class="active"></li>
+                        {% else %}
+                        <li data-target="#myCarousel" data-slide-to="{{forloop.counter0}}"></li>
+                        {% endif %}
+                        {% endfor %}
                     </ol>
-                        
-<!-- Wrapper for slides -->
                     <div class="carousel-inner">
                         {% for data in result.courses %}
                         {% if forloop.counter == 1%}
