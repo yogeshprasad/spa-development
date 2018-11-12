@@ -102,15 +102,16 @@ def courses(request, *args, **kwargs):
 
 	# Get User name for which this coaching belongs To
 	user = c_profile[0].username
-	course_titles = CoachingCourse.objects.filter(username=request.user).values('title').distinct()
+	course_titles = CoachingCourse.objects.filter(username=user).values('title').distinct()
 	#print(course_titles)
 	responseData = {}
 	for titleDict in course_titles:
 		title = titleDict.get('title')
-		chepters = CoachingCourse.objects.filter(username=request.user).filter(title=title).values('chapter')
+		chepters = CoachingCourse.objects.filter(username=user).filter(title=title).values('chapter')
 		chepters = [d['chapter'] for d in chepters]	
 		responseData[title] = chepters
 	data = {"courses": responseData, 'coaching_name':c_profile[0].name}
+	print(data)
 	return data
 
 def about(request, *args, **kwargs):
