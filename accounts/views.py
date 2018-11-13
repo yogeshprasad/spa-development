@@ -11,9 +11,13 @@ from accounts.account_forms.contactus import CoachingContactForm
 from pages.models import *
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.core.exceptions import ObjectDoesNotExist
 
 def redirect_to_login():
 	return redirect(reverse('accounts:login'))
+
+def redirect_to_logout():
+	return redirect(reverse('accounts:logout'))
 
 # Create your views here.
 def home(request):
@@ -26,7 +30,7 @@ def home(request):
 		if not user_exits:
 			form = CoachingRegisterationForm()
 			return render(request, 'accounts/register_coaching.html', {'form': form})
-		return render(request, 'accounts/coaching_profile.html', args)
+		return redirect(reverse('accounts:coachingprofile'))
 	else:
 		return render(request, 'accounts/dashboard.html', args)
 
@@ -36,7 +40,7 @@ def register(request):
 		form = RegistrationForm(request.POST)
 		if form.is_valid():
 			form.save()
-			return redirect(reverse('accounts:home'))
+			return redirect(reverse('accounts:login'))
 		else:
 			args = {'form': form}
 			return render(request, 'accounts/reg_form.html', args)
@@ -108,8 +112,8 @@ def coachingProfile(request):
 	if not request.user.is_authenticated:
 		return redirect_to_login()
 
-	# Get All data name
 	profile = CoachingProfile.objects.get(username=request.user)
+
 	form = CoachingRegisterationForm(initial={'coaching_name':profile.name,'unique_url':profile.url})
 
 	return render(request, 'accounts/coaching_profile.html', {'form': form, 'coaching_name': profile.name, 'page_name':"Coaching Profile"})
