@@ -1,0 +1,33 @@
+{% extends 'base_accounts.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+{% block body %}
+
+<div class="content">
+        <div class="container-fluid">
+          <div class="card">
+            <div class="card-header card-header-primary">
+              <h3 class="card-title">Notifications</h3>
+              <p class="card-category">Server Notifications</p>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <h4 class="card-title">Notification States</h4>
+                  <div class="alert alert-warning">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <i class="material-icons">close</i>
+                        </button>
+                        <span>
+                          <b> Warning - </b> {{error_msg}}</span>
+                      </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+{% endblock %}

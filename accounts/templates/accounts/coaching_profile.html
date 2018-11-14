@@ -14,7 +14,7 @@
 			  <p class="card-category">Edit Coaching Profile</p>
 			</div>
 			<div class="card-body">
-			  <form method="post" action="/account/editcoaching/">
+			  <form method="post" action="/account/newcoaching/">
 				<div class="row">
 				  <div class="col-md-12">
 					<div class="form-group">
@@ -28,7 +28,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="form-group">
-							<label id="coaching_url">Your Site Url: {{ request.get_host }}/</label>
+							<label>Your site url: <h4><a id="coaching_url"  style="color:blue;">{{ request.get_host }}/</a></h4></label>
 						</div>
 					</div>
 				</div>
@@ -44,9 +44,9 @@
 	</div>
 	<script>
 			var inputBox = document.getElementById("id_unique_url");
-            document.getElementById('coaching_url').innerHTML = "Your Site Url: {{ request.get_host }}/edu/" + inputBox.value;
+            document.getElementById('coaching_url').innerHTML = " {{ request.get_host }}/edu/" + inputBox.value;
 			inputBox.onkeyup = function(){
-				document.getElementById('coaching_url').innerHTML = "Your Site Url: {{ request.get_host }}/edu/" + inputBox.value;
+				document.getElementById('coaching_url').innerHTML = " {{ request.get_host }}/edu/" + inputBox.value;
 			}
 	</script>
 {% endblock %}

@@ -21,18 +21,15 @@ def redirect_to_logout():
 
 # Create your views here.
 def home(request):
-	numbers = [1,2,3,4,5,6]
-	name = "ram"
-	args = {'name': name, 'numbers': numbers}
 	if request.user.is_authenticated:
 		# Get All data name
 		user_exits = CoachingProfile.objects.filter(username=request.user)
 		if not user_exits:
 			form = CoachingRegisterationForm()
-			return render(request, 'accounts/register_coaching.html', {'form': form})
+			return render(request, 'accounts/register_coaching.html', {'form': form, 'coaching_profile':1})
 		return redirect(reverse('accounts:coachingprofile'))
 	else:
-		return render(request, 'accounts/dashboard.html', args)
+		return render(request, 'accounts/dashboard.html')
 
 # Create your views here.
 def register(request):
@@ -101,29 +98,48 @@ def registerNewCoaching(request):
 
 	form = CoachingRegisterationForm(request.POST)
 	if form.is_valid():
-		newc = CoachingProfile(username=request.user, name=form.cleaned_data['coaching_name'], url=form.cleaned_data['unique_url'])
-		newc.save()
-		coachingProfile(request)
+		c_profile = CoachingProfile.objects.filter(username=request.user).values()
+		if c_profile:
+			if c_profile[0].get('url') != form.cleaned_data['unique_url']:
+				result = CoachingProfile.objects.filter(url=form.cleaned_data['unique_url']).values()
+				if result:
+					return render(request, 'accounts/coaching_profile.html', {'form': form, 'result':{'status':'warn', 'message': "Entered url is not available, Please enter new url."}})
+
+			CoachingProfile.objects.filter(username=request.user).update(name=form.cleaned_data['coaching_name'], url=form.cleaned_data['unique_url'])
+		else:
+			result = CoachingProfile.objects.filter(url=form.cleaned_data['unique_url']).values()
+			if result:
+				return render(request, 'accounts/register_coaching.html', {'form': form, 'result':{'status':'warn', 'message': "Entered url is not available, Please enter new url."}})
+
+			newc = CoachingProfile(username=request.user, name=form.cleaned_data['coaching_name'], url=form.cleaned_data['unique_url'])
+			newc.save()
+		return getCoachingProfile(request)
 	else:
-		print(form)
 		return render(request, 'accounts/register_coaching.html', {'form': form})
 
-def coachingProfile(request):
+def getCoachingProfile(request):
 	if not request.user.is_authenticated:
 		return redirect_to_login()
-
-	profile = CoachingProfile.objects.get(username=request.user)
+	try:
+		profile = CoachingProfile.objects.get(username=request.user)
+	except ObjectDoesNotExist as e:
+		print(str(request.user) + " Error: Coaching registration not complated yet")
+		return redirect(reverse('accounts:home'))
 
 	form = CoachingRegisterationForm(initial={'coaching_name':profile.name,'unique_url':profile.url})
-
 	return render(request, 'accounts/coaching_profile.html', {'form': form, 'coaching_name': profile.name, 'page_name':"Coaching Profile"})
+	
 
 def edit_contactus(request):
 	if not request.user.is_authenticated:
 		return redirect_to_login()
 
 	contactUsInfo = CoachingContact.objects.filter(username=request.user).values()
-	profile = CoachingProfile.objects.get(username=request.user)
+	try:
+		profile = CoachingProfile.objects.get(username=request.user)
+	except ObjectDoesNotExist as e:
+		print(str(request.user) + " Error: Coaching registration not complated yet")
+		return redirect(reverse('accounts:home'))
 
 	if request.method == "GET":
 		form = CoachingContactForm()
@@ -167,8 +183,11 @@ def edit_contactus(request):
 def edit_courses(request):
 	if not request.user.is_authenticated:
 		return redirect_to_login()
-
-	profile = CoachingProfile.objects.get(username=request.user)
+	try:
+		profile = CoachingProfile.objects.get(username=request.user)
+	except ObjectDoesNotExist as e:
+		print(str(request.user) + " Error: Coaching registration not complated yet")
+		return redirect(reverse('accounts:home'))
 
 	datatoedit = []
 	gettitle = None
@@ -196,7 +215,11 @@ def edit_courses(request):
 def save_new_course(request):
 	if not request.user.is_authenticated:
 		return redirect_to_login()
-	profile = CoachingProfile.objects.get(username=request.user)
+	try:
+		profile = CoachingProfile.objects.get(username=request.user)
+	except ObjectDoesNotExist as e:
+		print(str(request.user) + " Error: Coaching registration not complated yet")
+		return redirect(reverse('accounts:home'))
 
 	if request.method == "POST":
 		course_title = request.POST.get('course_title')
@@ -226,8 +249,11 @@ def save_new_course(request):
 def edit_price(request):
 	if not request.user.is_authenticated:
 		return redirect_to_login()
-
-	profile = CoachingProfile.objects.get(username=request.user)
+	try:
+		profile = CoachingProfile.objects.get(username=request.user)
+	except ObjectDoesNotExist as e:
+		print(str(request.user) + " Error: Coaching registration not complated yet")
+		return redirect(reverse('accounts:home'))
 
 	priceInfo = {}
 	if request.method == 'POST':
@@ -260,12 +286,10 @@ def enquiry(request):
 	if request.method == "POST":
 		try:
 			# Get Coaching Profile Id
-			print(request.POST)
 			c_url = request.POST.get('domurl')
 			url = c_url.split("/")[4]
 			# Get Profile Info
 			c_profile = CoachingProfile.objects.filter(url=url)
-			print(c_profile)
 			# Get User name for which this coaching belongs To
 			username = c_profile[0].username
 			name = request.POST.get('name', '')
@@ -281,14 +305,25 @@ def enquiry(request):
 	elif request.method == "GET":
 		if not request.user.is_authenticated:
 			return redirect_to_login()
-		profile = CoachingProfile.objects.get(username=request.user)
+		try:
+			profile = CoachingProfile.objects.get(username=request.user)
+		except ObjectDoesNotExist as e:
+			print(str(request.user) + " Error: Coaching registration not complated yet")
+			return redirect(reverse('accounts:home'))
+
 		data = list(StudentEnquiry.objects.filter(username=request.user).order_by('-created_at').values())
 		return render(request, 'accounts/enquiry.html', {'data':data, 'page_name':"Enquiry", 'coaching_name': profile.name})
-		
+			
+
 def edit_about(request):
 	if not request.user.is_authenticated:
 		return redirect_to_login()
-	profile = CoachingProfile.objects.get(username=request.user)
+	try:
+		profile = CoachingProfile.objects.get(username=request.user)
+	except ObjectDoesNotExist as e:
+		print(str(request.user) + " Error: Coaching registration not complated yet")
+		return redirect(reverse('accounts:home'))
+
 	responseObj = {}
 	if request.method == "POST":
 		action = request.POST.get("action")
@@ -383,7 +418,12 @@ def edit_about(request):
 def edit_home(request):
 	if not request.user.is_authenticated:
 		return redirect_to_login()
-	profile = CoachingProfile.objects.get(username=request.user)
+	try:
+		profile = CoachingProfile.objects.get(username=request.user)
+	except ObjectDoesNotExist as e:
+		print(str(request.user) + " Error: Coaching registration not complated yet")
+		return redirect(reverse('accounts:home'))
+
 	responseObj = {}
 	if request.method == "POST":
 		action = request.POST.get("action")

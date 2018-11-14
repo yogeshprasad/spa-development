@@ -9,7 +9,7 @@
 		<div class="col-md-8">
 		  <div class="card">
 			<div class="card-header card-header-primary">
-				<h4 class="card-title">Coaching Registeration</h4>
+				<h4 class="card-title">New Coaching Registeration</h4>
 			  <p class="card-category">Complete coaching registeration</p>
 			</div>
 			<div class="card-body">
@@ -27,7 +27,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<div class="form-group">
-							<label id="coaching_url">Your Site Url: {{ request.get_host }}/</label>
+							<label>Your site url will be: <h4><a id="coaching_url" style="color:blue;">{{ request.get_host }}/</a></h4></label>
 						</div>
 					</div>
 				</div>
@@ -44,7 +44,7 @@
 	<script>
 			var inputBox = document.getElementById("id_unique_url");
 			inputBox.onkeyup = function(){
-				document.getElementById('coaching_url').innerHTML = "Your Site Url: {{ request.get_host }}/edu/" + inputBox.value;
+				document.getElementById('coaching_url').innerHTML = " {{ request.get_host }}/edu/" + inputBox.value;
 			}
 	</script>
 {% endblock %}

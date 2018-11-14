@@ -41,7 +41,7 @@
               <p>Dashboard</p>
             </a>
           </li> -->
-          {% if user.is_authenticated %}
+          {% if user.is_authenticated and not coaching_profile %}
           <li class="nav-item ">
             <a class="nav-link" href="{% url 'accounts:coachingprofile' %}">
               <i class="material-icons">person</i>
@@ -130,6 +130,40 @@
         </div>
       </nav>
       <!-- End Navbar -->
+      <br><br>
+
+      {% if result %}
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-8">
+              {% if result.status == "success" %}
+                <div class="alert alert-success">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                      <i class="material-icons">close</i>
+                    </button>
+                    <span>
+                      <b> Success - </b> {{result.message}}</span>
+                  </div>
+              {% elif result.status == "warn" %}
+              <div class="alert alert-warning">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <i class="material-icons">close</i>
+                  </button>
+                  <span><b> Warning - </b> {{result.message}}</span>
+              </div>
+              {% elif result.status == "error" %}
+              <div class="alert alert-danger">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <i class="material-icons">close</i>
+                  </button>
+                  <span>
+                    <b> Error - </b>{{result.message}}</span>
+                </div>
+                {% endif %}
+            </div>
+          </div>
+        </div>
+        {% endif %}
 
       {% block body %}
         <h1>Home</h1>
