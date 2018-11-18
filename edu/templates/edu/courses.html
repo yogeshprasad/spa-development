@@ -1,54 +1,45 @@
 {% extends 'base.html' %}
 {% load static %}
 
-<!--This is having obj access: {'java': ['jvm', 'memory'], 'c': ['variable', 'loops']}-->
 {% block body %}
-<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-<script type='text/javascript' src="{% static 'edu/assets/js/course-script.js' %}"></script>
-<link rel="stylesheet" href="{% static 'edu/assets/css/course-style.css' %}">
-<link rel="stylesheet" href="{% static 'edu/assets/css/course2.css' %}">
-
-	<header id="head" class="secondary">
-        <div class="container">
-            <h1>Courses</h1>
-            <p>List of Courses offered by us</p>
-        </div>
-    </header>
-
-	<br>
-    <div class="container">
-		<nav class="navbar navbar-default sidebar" role="navigation">
-			<div class="container-fluid">
-				<div class="navbar-header">
-					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-sidebar-navbar-collapse-1">
-						<span class="sr-only">Toggle navigation</span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-						<span class="icon-bar"></span>
-					</button>      
-				</div>
-				<div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
-					<ul class="nav navbar-nav">
-						{% for key in result.courses.keys %}
-						<li><a href="#{{key}}">{{ key }}<span style="font-size:16px;" class="pull-right hidden-xs showopacity"></span></a></li>
-						{% endfor %}
-					</ul>
-				</div>
-			</div>
-		</nav>
-		<div class="container-fluid">
-			<div class="side-body">
+<link rel="stylesheet" href="{% static 'edu/assets/css/custom.css' %}">
+<header id="head" class="secondary">
+	<div class="container">
+		<h1>Courses</h1>
+		<p>List of Courses offered by us</p>
+	</div>
+</header>
+<br>
+<div class="container">
+	<div class="row">
+		<div class="col-md-2 col-lg-2 col-ms-12">
+			<ul class="nav navbar-nav navbar-default">
 				{% for key, values in result.courses.items %}
-						<div id="{{key}}">
-						<h3> Course Name: {{key}} </h3>
-						<br>
-						{% for value in values %}
-							<pre>  {{forloop.counter}} - {{value}} </pre>
-						{% endfor %}
-					</div>
+				<li class="nav-item"><a class="nav-link" href="#{{key}}">{{key}}</a></li>
 				{% endfor %}
-
-			</div>
+			</ul>
+		</div>
+		<div class="col-md-10 col-lg-10 col-ms-12">
+			{% for key, values in result.courses.items %}
+			<div id="{{key}}" class="caption">{{key}}</div>	
+			<table class="table table-bordered table-striped table-hover course-table">
+				<thead>
+					<tr class="header-row">
+						<th class="col-md-1 col-lg-1 col-ms-1">#</th>
+						<th class="col-md-9 col-lg-9 col-ms-9">Chapter</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for value in values %}
+					<tr>
+						<td class="col-md-1 col-lg-1 col-ms-1">{{forloop.counter}}</td>
+						<td class="col-md-9 col-lg-9 col-ms-9">{{value}}</td>
+					</tr>
+					{% endfor %}      
+				</tbody> 
+			</table>
+			{% endfor %}
 		</div>
 	</div>
-	{% endblock %}
+</div>
+{% endblock %}

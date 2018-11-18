@@ -29,7 +29,7 @@ def home(request):
 			return render(request, 'accounts/register_coaching.html', {'form': form, 'coaching_profile':1})
 		return redirect(reverse('accounts:coachingprofile'))
 	else:
-		return render(request, 'accounts/dashboard.html')
+		return render(request, 'accounts/home.html')
 
 # Create your views here.
 def register(request):

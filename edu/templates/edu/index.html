@@ -68,46 +68,48 @@
 					</div><!--/span3-->
 				</div>
     </div>
-      <section class="news-box top-margin">
-        <div class="container">
-
-            <h2><span>Up Coming Classes</span></h2>
-            <div class="row">
-                <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                    <!-- Indicators -->
-                    <ol class="carousel-indicators">
-                        {% for data in result.courses %}
-                        {% if forloop.counter0 == 0 %}
-                        <li data-target="#myCarousel" data-slide-to="{{forloop.counter0}}" class="active"></li>
-                        {% else %}
-                        <li data-target="#myCarousel" data-slide-to="{{forloop.counter0}}"></li>
-                        {% endif %}
-                        {% endfor %}
-                    </ol>
-                    <div class="carousel-inner">
-                        {% for data in result.courses %}
-                        {% if forloop.counter == 1%}
-                            <div class="item active">
-                        {% else %}
-                        <div class="item">
-                        {% endif %}
-                            <img src="{% static 'edu/assets/images/new-courses-2.jpeg' %}">
-                            <div class="carousel-caption">
-                                <h3>{{data.title}}</h3>
-                                <h4>{{data.message}}</h4>
+<section class="news-box top-margin">
+    <div class="container">
+        <h2><span>Up Coming Classes</span></h2>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="newsBox">
+                    <div class="thumbnail">
+                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                            <!-- Indicators -->
+                            <ol class="carousel-indicators">
+                                {% for data in result.courses %}
+                                {% if forloop.counter0 == 0 %}
+                                <li data-target="#myCarousel" data-slide-to="{{forloop.counter0}}" class="active"></li>
+                                {% else %}
+                                <li data-target="#myCarousel" data-slide-to="{{forloop.counter0}}"></li>
+                                {% endif %}
+                                {% endfor %}
+                            </ol>
+                            <div class="carousel-inner">
+                                {% for data in result.courses %}
+                                {% if forloop.counter == 1%}
+                                    <div class="item active">
+                                {% else %}
+                                <div class="item">
+                                {% endif %}
+                                <figure><img style="height:150px" src="{% static 'edu/assets/images/new-courses-2.jpg' %}"></figure>
+                                    <div class="carousel-caption box">
+                                       <p class="title"><h3>{{data.title}}</h3></p> 
+                                        <p class="title"><h4>{{data.message}}</h4></p>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                </div>
                             </div>
-                        </div>
-                        {% endfor %}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-   
-  
-	
-      <section class="container">
+    </div>
+</section>
+     <section class="container">
       <div class="row">
       	<div class="col-md-8"><div class="title-box clearfix "><h2 class="title-box_primary">About Us</h2></div> 
         <p><span>{{result.aboutus}}</span></p>

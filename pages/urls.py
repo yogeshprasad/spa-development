@@ -16,6 +16,4 @@ Including another URLconf
 from . import views
 from django.urls import path, re_path
 
-urlpatterns = [
-    re_path(r'^(?P<pageid>[\w\-]+)/$', views.edit_page, name='edit_page')
-]
+urlpatterns = []

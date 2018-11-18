@@ -1,0 +1,27 @@
+table.course-table tr:hover {
+    background: #64e0ef;
+    background-color: #64e0ef;
+}
+
+table.course-table tr:hover td {
+    background-color: transparent;
+}
+ .caption {
+     display: block;
+     width: 100%;
+     background: #64e0ef;
+     height: 55px;
+     padding-left: 10px;
+     color: #fff;
+     font-size: 20px;
+     line-height: 55px;
+     text-shadow: 1px 1px 1px rgba(0,0,0,.3);
+     box-sizing: border-box;
+     text-align: center;
+ }
+
+ .header-row {
+     background: #8b8b8b;
+     color: #fff;
+
+ }
