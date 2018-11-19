@@ -22,6 +22,7 @@ from django.contrib.auth.views import (
     )
 
 urlpatterns = [
+    path('', views.home, name='home'),
     path('home/', views.home, name='home'),
     path('login/', login, {'template_name': 'accounts/login.html'}, name='login'),
     path('logout/', logout, {'template_name': 'accounts/logout.html'}, name='logout'),

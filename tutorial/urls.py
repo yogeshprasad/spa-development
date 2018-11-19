@@ -17,8 +17,8 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from tutorial import views
 urlpatterns = [
-    re_path(r'^', include(('edu.urls', 'edu'))),
     path('', views.home, name='home'),
     path('admin/', admin.site.urls),
     path('account/', include(('accounts.urls', 'accounts'))),
+    re_path(r'^', include(('edu.urls', 'edu'))),
 ]
