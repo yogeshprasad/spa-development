@@ -12,6 +12,7 @@ from pages.models import *
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core.exceptions import ObjectDoesNotExist
+from accounts.models import UserProfile
 
 def redirect_to_login():
 	return redirect(reverse('accounts:login'))
@@ -47,33 +48,19 @@ def register(request):
 		args = {'form': form}
 		return render(request, 'accounts/reg_form.html', args)
 
-def view_profile(request):
+def profile(request):
 	if not request.user.is_authenticated:
 		return redirect_to_login()
-
-	if not request.user.is_authenticated:
-		return redirect_to_login()
-
-	data = {'username': request.user.first_name + " " + request.user.last_name, 'email': request.user.email}
-
-	return render(request, 'accounts/user.html', data)
-
-def edit_profile(request):
-	if not request.user.is_authenticated:
-		return redirect_to_login()
-
 	if request.method == 'POST':
-		form = EditProfileForm(request.POST, instance=request.user)
+		up = UserProfile.objects.get(user=request.user)
+		up.description = request.POST.get('description')
+		up.city = request.POST.get('city')
+		up.phone = request.POST.get('contact')
+		if request.FILES:
+			up.image = request.FILES['profilepic']
+		up.save()
 
-		if form.is_valid():
-			form.save()
-			return redirect(reverse('accounts:view_profile'))
-
-	else:
-		form = EditProfileForm(instance=request.user)
- 
-		args = {'form': form}
-		return render(request, 'accounts/edit_profile.html', args)
+	return render(request, 'accounts/user.html')
 
 def change_password(request):
 	if request.method == 'POST':

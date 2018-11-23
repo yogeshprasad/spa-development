@@ -8,8 +8,8 @@ class UserProfile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
 	description = models.CharField(max_length=100, default='')
 	city = models.CharField(max_length=100, default='')
-	website = models.URLField(default='')
 	phone = models.IntegerField(default=0)
+	image = models.ImageField(upload_to='profile_image', blank=True, default='profile_image/default.jpg')
 
 def create_profile(sender, **kwargs):
 	if kwargs['created']:

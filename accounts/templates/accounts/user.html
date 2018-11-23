@@ -5,21 +5,98 @@
 {% block body %}
 
 <div class="content">
-    <div class="container-fluid">
- 
-        <div class="col-md-4">
-          <div class="card card-profile">
-            <div class="card-body">
-              <h6 class="card-category text-gray">CEO / Co-Founder</h6>
-              <h4 class="card-title">{{username}}</h4>
-              <p class="card-description">
-                Email: {{email}}
-              </p>
-              <a href="#" class="btn btn-primary btn-round">Edit</a>
-            </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header card-header-primary">
+            <h4 class="card-title">Edit User Profile</h4>
+            <p class="card-category">Edit profile information</p>
+          </div>
+          <div class="card-body">
+            <form method="post" action="/account/profile/" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="bmd-label-floating">Fist Name</label>
+                      <input name="userfname" type="text" class="form-control" value="{{ request.user.first_name }}">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label class="bmd-label-floating">Last Name</label>
+                      <input name="userlname" type="text" class="form-control"  value="{{ request.user.last_name }}">
+                    </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="bmd-label-floating">Username</label>
+                        <input name="username" type="text" class="form-control" value="{{ request.user.username }}" disabled>
+                      </div>
+                    </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="bmd-label-floating">City</label>
+                    <input name="city" type="text" class="form-control"  value="{{ request.user.userprofile.city }}">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="bmd-label-floating">Email</label>
+                    <input name="email" type="text" class="form-control"  value="{{ request.user.email }}" disabled>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label class="bmd-label-floating">Contact Number</label>
+                    <input name="contact" type="text" class="form-control"  value="{{ request.user.userprofile.phone }}">
+                  </div>
+                </div>
+                <div class="col-md-3">
+                    <label class="bmd-label-floating">Profile Picture</label>
+                    <input name="profilepic" type="file" class="form-control" name="profile_pic" accept="image/*">
+                  </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <div class="form-group">
+                      <label class="bmd-label-floating">About Me</label>
+                      <textarea name="description" class="form-control" rows="5">{{request.user.userprofile.description}}</textarea>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary pull-right">Submit</button>
+              <div class="clearfix"></div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card card-profile">
+          <div class="card-avatar">
+            <a href="#pablo">
+              <img class="img" src="{{request.user.userprofile.image.url}}" />
+            </a>
+          </div>
+          <div class="card-body">
+            <h6 class="card-category text-gray">Admin</h6>
+            <h4 class="card-title">{{request.user.first_name}} {{request.user.last_name}}</h4>
+            <p class="card-description">
+                {{request.user.userprofile.description}}
+            </p>
+            <a href="#" class="btn btn-primary btn-round">Follow</a>
           </div>
         </div>
       </div>
     </div>
-
+  </div>
+</div>
 {% endblock %}
