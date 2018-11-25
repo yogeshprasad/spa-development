@@ -29,8 +29,12 @@
         Tip 2: you can also add an image using data-image tag
     -->
       <div class="logo">
-        <a href="http://www.creative-tim.com" class="simple-text logo-normal" style="font-family:Comic Sans MS">
-          {{coaching_name}}
+        <a href="#" class="simple-text logo-normal" style="font-family:Comic Sans MS">
+          {% if user.is_authenticated %}
+            {{coaching_name}}
+          {% else %}
+            CoachingWala
+          {% endif %}
         </a>
       </div>
       <div class="sidebar-wrapper">
