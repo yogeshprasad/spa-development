@@ -44,9 +44,9 @@
 	</div>
 	<script>
 			var inputBox = document.getElementById("id_unique_url");
-            document.getElementById('coaching_url').innerHTML = " {{ request.get_host }}/edu/" + inputBox.value;
+            document.getElementById('coaching_url').innerHTML = " {{ request.get_host }}/" + inputBox.value;
 			inputBox.onkeyup = function(){
-				document.getElementById('coaching_url').innerHTML = " {{ request.get_host }}/edu/" + inputBox.value;
+				document.getElementById('coaching_url').innerHTML = " {{ request.get_host }}/" + inputBox.value;
 			}
 	</script>
 {% endblock %}

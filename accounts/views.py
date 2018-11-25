@@ -13,12 +13,10 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.core.exceptions import ObjectDoesNotExist
 from accounts.models import UserProfile
+from django.contrib.auth.decorators import login_required
 
 def redirect_to_login():
 	return redirect(reverse('accounts:login'))
-
-def redirect_to_logout():
-	return redirect(reverse('accounts:logout'))
 
 # Create your views here.
 def home(request):
@@ -48,9 +46,10 @@ def register(request):
 		args = {'form': form}
 		return render(request, 'accounts/reg_form.html', args)
 
+@login_required(login_url='/account/login/')
 def profile(request):
-	if not request.user.is_authenticated:
-		return redirect_to_login()
+	profile = CoachingProfile.objects.get(username=request.user)
+
 	if request.method == 'POST':
 		up = UserProfile.objects.get(user=request.user)
 		up.description = request.POST.get('description')
@@ -60,7 +59,7 @@ def profile(request):
 			up.image = request.FILES['profilepic']
 		up.save()
 
-	return render(request, 'accounts/user.html')
+	return render(request, 'accounts/user.html',{'coaching_name': profile.name})
 
 def change_password(request):
 	if request.method == 'POST':
@@ -79,9 +78,8 @@ def change_password(request):
 		args = {'form': form}
 		return render(request, 'accounts/change_password.html', args)
 
+@login_required(login_url='/account/login/')
 def registerNewCoaching(request):
-	if not request.user.is_authenticated:
-		return redirect_to_login()
 
 	form = CoachingRegisterationForm(request.POST)
 	if form.is_valid():
@@ -104,9 +102,8 @@ def registerNewCoaching(request):
 	else:
 		return render(request, 'accounts/register_coaching.html', {'form': form})
 
+@login_required(login_url='/account/login/')
 def getCoachingProfile(request):
-	if not request.user.is_authenticated:
-		return redirect_to_login()
 	try:
 		profile = CoachingProfile.objects.get(username=request.user)
 	except ObjectDoesNotExist as e:
@@ -116,11 +113,8 @@ def getCoachingProfile(request):
 	form = CoachingRegisterationForm(initial={'coaching_name':profile.name,'unique_url':profile.url})
 	return render(request, 'accounts/coaching_profile.html', {'form': form, 'coaching_name': profile.name, 'page_name':"Coaching Profile"})
 	
-
+@login_required(login_url='/account/login/')
 def edit_contactus(request):
-	if not request.user.is_authenticated:
-		return redirect_to_login()
-
 	contactUsInfo = CoachingContact.objects.filter(username=request.user).values()
 	try:
 		profile = CoachingProfile.objects.get(username=request.user)
@@ -167,9 +161,8 @@ def edit_contactus(request):
 		else:
 			return render(request, 'accounts/edit_contactus.html', {'form': form, 'page_name':"Edit Contact Us", 'coaching_name': profile.name})
 
+@login_required(login_url='/account/login/')
 def edit_courses(request):
-	if not request.user.is_authenticated:
-		return redirect_to_login()
 	try:
 		profile = CoachingProfile.objects.get(username=request.user)
 	except ObjectDoesNotExist as e:
@@ -199,9 +192,8 @@ def edit_courses(request):
 
 	return render(request, 'accounts/edit_courses.html',{'data':response, 'chapters': datatoedit, 'title': gettitle, 'page_name':"Edit Courses", 'coaching_name': profile.name})
 
+@login_required(login_url='/account/login/')
 def save_new_course(request):
-	if not request.user.is_authenticated:
-		return redirect_to_login()
 	try:
 		profile = CoachingProfile.objects.get(username=request.user)
 	except ObjectDoesNotExist as e:
@@ -233,9 +225,8 @@ def save_new_course(request):
 
 	return render(request, 'accounts/edit_courses.html',{'data':response, 'page_name':"Edit Courses", 'coaching_name': profile.name})
 
+@login_required(login_url='/account/login/')
 def edit_price(request):
-	if not request.user.is_authenticated:
-		return redirect_to_login()
 	try:
 		profile = CoachingProfile.objects.get(username=request.user)
 	except ObjectDoesNotExist as e:
@@ -266,7 +257,6 @@ def edit_price(request):
 			priceInfo[data.get('title')] = 0
 
 	return render(request, 'accounts/edit_price.html', {'result': priceInfo, 'page_name':"Edit Price", 'coaching_name': profile.name})
-		
 
 @csrf_exempt
 def enquiry(request):
@@ -301,10 +291,8 @@ def enquiry(request):
 		data = list(StudentEnquiry.objects.filter(username=request.user).order_by('-created_at').values())
 		return render(request, 'accounts/enquiry.html', {'data':data, 'page_name':"Enquiry", 'coaching_name': profile.name})
 			
-
+@login_required(login_url='/account/login/')
 def edit_about(request):
-	if not request.user.is_authenticated:
-		return redirect_to_login()
 	try:
 		profile = CoachingProfile.objects.get(username=request.user)
 	except ObjectDoesNotExist as e:
@@ -402,9 +390,8 @@ def edit_about(request):
 		responseObj.update({'team': team})
 	return render(request, 'accounts/edit_about.html', {'data':responseObj, 'page_name':"Edit About Us", 'coaching_name': profile.name})
 
+@login_required(login_url='/account/login/')
 def edit_home(request):
-	if not request.user.is_authenticated:
-		return redirect_to_login()
 	try:
 		profile = CoachingProfile.objects.get(username=request.user)
 	except ObjectDoesNotExist as e:
