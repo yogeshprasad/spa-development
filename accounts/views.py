@@ -61,21 +61,23 @@ def profile(request):
 
 	return render(request, 'accounts/user.html',{'coaching_name': profile.name})
 
+@login_required(login_url='/account/login/')
 def change_password(request):
+	profile = CoachingProfile.objects.get(username=request.user)
 	if request.method == 'POST':
 		form = PasswordChangeForm(data=request.POST, user=request.user)
 
 		if form.is_valid():
 			form.save()
 			update_session_auth_hash(request, form.user)
-			return redirect(reverse('accounts:view_profile'))
+			args = {'form': PasswordChangeForm(user=request.user), 'coaching_name': profile.name, 'result':{'status':'success', 'message': "Password updated successfully."}}
+			return render(request, 'accounts/change_password.html', args)
 		else:
-			return redirect(reverse('accounts:change_password'))
-
+			args = {'form': form}
+			return render(request, 'accounts/change_password.html', args)
 	else:
 		form = PasswordChangeForm(user=request.user)
-
-		args = {'form': form}
+		args = {'form': form, 'coaching_name': profile.name}
 		return render(request, 'accounts/change_password.html', args)
 
 @login_required(login_url='/account/login/')
