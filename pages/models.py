@@ -69,3 +69,10 @@ class NewCourses(models.Model):
     username = models.CharField(max_length=100, default='')
     title = models.CharField(max_length=100, default='')
     message = models.CharField(max_length=500, default='')
+
+class Teachers(models.Model):
+    username = models.CharField(max_length=100, default='')
+    name = models.CharField(max_length=100, default='')
+    contact = models.IntegerField(default=0)
+    email = models.EmailField(max_length=70, default='')
+    description = models.CharField(max_length=1000, default='')

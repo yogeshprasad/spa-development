@@ -1,0 +1,160 @@
+{% extends 'base_accounts.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+
+{% block body %}
+<script src="/static/accounts/assets/js/jquery-1.10.2.js" type="text/javascript"></script>
+
+<div class="content">
+	<div class="container-fluid">
+	 	<div class="row">
+			<div class="col-md-8">
+		  		<div class="card">
+					<div class="card-header card-header-primary">
+						{% if teacher %}
+							<h4 class="card-title ">Edit Teacher</h4>
+							<p class="card-category"> Edit Teacher Details</p>
+						{% else %}
+						<h4 class="card-title">Add Teacher</h4>
+						<p class="card-category">Add New Teacher</p>
+						{% endif %}
+					</div>
+					<div class="card-body">
+						<form method="post" action="/account/add/teacher/">
+							{% csrf_token %}
+							<div id="coursesid" class="card-body">
+								<div class="row">
+									<div class="col-md-8">
+										<div class="form-group bmd-form-group">
+											<label>Name</label>
+											{% if teacher %}
+												<input type="text" name= "name" value="{{ teacher.name }}" class="form-control" required>
+											{% else %}
+												<input type="text" name= "name" class="form-control" required>
+											{% endif %}
+										</div>
+									</div>
+									<div class="col-md-8">
+										<div class="form-group bmd-form-group">
+											<label>Contact</label>
+											{% if teacher %}
+												<input type="number" name="contact" value="{{ teacher.contact }}" class="form-control" required>
+											{% else %}
+												<input type="number" name= "contact" class="form-control" required>
+											{% endif %}
+										</div>
+										</div>
+										<div class="col-md-8">
+											<div class="form-group bmd-form-group">
+												<label>Email</label>
+												{% if teacher %}
+													<input type="email" name= "email" value="{{ teacher.email }}" class="form-control" required>
+												{% else %}
+												<input type="email" name= "email" class="form-control" required>
+												{% endif %}
+											</div>
+										</div>
+										<div class="col-md-8">
+											<div class="form-group bmd-form-group">
+												<label>Description</label>
+												{% if teacher %}
+													<input type="text" name= "description" value="{{ teacher.description }}" class="form-control">
+												{% else %}
+												<input type="text" name= "description" class="form-control">
+												{% endif %}
+											</div>
+										</div>
+								</div>
+							</div>
+							{% if teacher %}
+								<input type="text" name= "id" value="{{ teacher.id }}" class="form-control" style="display:none">
+							{% endif %}
+							<button type="submit" class="btn btn-primary pull-right">Submit</button>
+							<div class="clearfix"></div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+					<div class="row">
+							<div class="col-md-12">
+								<div class="card">
+									<div class="card-header card-header-primary">
+										<h4 class="card-title ">Teachers Detail</h4>
+										<p class="card-category"> List of Teachers</p>
+									</div>
+									<div class="card-body">
+										<div class="table-responsive">
+											<table class="table">
+												<thead class=" text-primary">
+													<th>
+														Id
+													</th>
+													<th>
+														Name
+													</th>
+													<th>
+														Contact
+													</th>
+													<th>
+														Email
+													</th>
+													<th>
+														Description
+													</th>
+													<th>
+														Edit
+													</th>
+													<th>
+														Delete
+													</th>
+												</thead>
+												<tbody>
+														{% for item in data %}
+													<tr>
+														<td>
+																{{ forloop.counter }}
+														</td>
+														<td class="text-primary">
+															{{item.name}}
+														</td>
+														<td class="text-primary">
+															{{item.contact}}
+														</td>
+														<td class="text-primary">
+															{{item.email}}
+														</td>
+														<td class="text-primary">
+															{{item.description}}
+														</td>
+		
+														<td>
+															<form action="/account/get/teacher/">
+																{% csrf_token %}
+																<input type="text" name="id" value="{{item.id}}" style="display:none">
+																<button type="submit" class="btn btn-info">Edit</button>
+															</form>
+														</td>
+														<td>
+															<form method="post" action="/account/delete/teacher/">
+																{% csrf_token %}
+																<input type="text" name="id" value="{{item.id}}" style="display:none">
+																<button type="submit" class="btn btn-danger">Delete</button>
+															</form>
+														</td>
+													</tr>
+													{% endfor %}
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+				
+			
+
+	</div>
+</div>
+{% endblock %}

@@ -50,7 +50,7 @@
           {% if user.is_authenticated and not coaching_profile %}
           <li class="nav-item ">
             <a class="nav-link" href="{% url 'accounts:coachingprofile' %}">
-              <i class="material-icons">person</i>
+              <i class="material-icons">airplay</i>
               <p>Coaching Profile</p>
             </a>
           </li>
@@ -60,7 +60,12 @@
               <p>Enquiries</p>
             </a>
           </li>
-
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'accounts:teachers' %}">
+              <i class="material-icons">person</i>
+              <p>Teacher</p>
+            </a>
+          </li>
           <li class="nav-item dropdown">
             <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="material-icons">content_paste</i>Edit Pages
