@@ -1,3 +1,5 @@
+import datetime
+
 from django.shortcuts import render, redirect
 from accounts.forms import RegistrationForm, EditProfileForm
 from django.contrib.auth.models import User
@@ -266,7 +268,7 @@ def enquiry(request):
 		try:
 			# Get Coaching Profile Id
 			c_url = request.POST.get('domurl')
-			url = c_url.split("/")[4]
+			url = c_url.split("/")[3]
 			# Get Profile Info
 			c_profile = CoachingProfile.objects.filter(url=url)
 			# Get User name for which this coaching belongs To

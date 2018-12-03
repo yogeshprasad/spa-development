@@ -32,7 +32,7 @@ class StudentEnquiry(models.Model):
     mobile = models.IntegerField(default=0)
     message = models.CharField(max_length=1000, default='')
     subject = models.CharField(max_length=500, default='')
-    created_at = models.DateTimeField('')
+    created_at = models.DateTimeField(auto_now_add=True)
 
 # This model refers to contact us page in the site
 class CoachingAboutus(models.Model):
